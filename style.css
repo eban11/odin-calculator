@@ -37,6 +37,7 @@ main {
   padding: 15px;
   box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1),
     -1px -1px 5px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .display {
@@ -51,6 +52,15 @@ main {
   padding: 10px;
   font-size: 18px;
   overflow-x: scroll;
+}
+
+.operator {
+  position: absolute;
+  left: 22px;
+  top: 47px;
+  font-size: 18px;
+  color: #616164;
+  padding: 5px;
 }
 
 .row {

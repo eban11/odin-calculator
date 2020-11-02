@@ -9,6 +9,7 @@ const addBtn = document.querySelector(".add");
 const equalBtn = document.querySelector(".equal");
 const valueBtns = document.querySelectorAll(".value");
 const inputBox = document.querySelector(".display");
+const operatorDisplay = document.querySelector(".operator");
 
 let computedValue = 0;
 let typedVal = "";
@@ -19,6 +20,10 @@ const setDisplay = (val) => {
   inputBox.value = val || 0;
 };
 
+const setOperator = (operator) => {
+  operatorDisplay.textContent = computedValue ? operator : "";
+};
+
 const handleTyping = function (e) {
   if (!(e.target.dataset.value === "0" && !typedVal.length)) {
     if (e.target.dataset.value === ".") {
@@ -26,6 +31,11 @@ const handleTyping = function (e) {
       if (!typedVal.length) typedVal += "0";
       isFloating = true;
     }
+
+    if (!computedValue) {
+      setOperator("");
+    }
+
     typedVal += e.target.dataset.value;
     setDisplay(typedVal);
   } else {
@@ -43,6 +53,7 @@ const backspace = () => {
 const compute = () => {
   if (lastOpration === "%") {
     computedValue /= 100;
+    lastOpration = "*";
   }
   if (!computedValue) {
     computedValue = Number(typedVal);
@@ -75,12 +86,14 @@ const clear = () => {
   typedVal = "";
   lastOpration = "";
   isFloating = false;
+  setOperator("");
   setDisplay(0);
 };
 
 const add = () => {
   compute();
   lastOpration = "+";
+  setOperator("+");
 };
 
 const minus = () => {
@@ -91,31 +104,39 @@ const minus = () => {
   }
   compute();
   lastOpration = "-";
+  setOperator("-");
 };
 
 const multiply = () => {
   compute();
   lastOpration = "*";
+  setOperator("x");
 };
 
 const divide = () => {
   compute();
   lastOpration = "/";
+  setOperator("÷");
 };
 
 const power = () => {
   compute();
   lastOpration = "^";
+  setOperator("^");
 };
 
 const percent = () => {
   compute();
   setDisplay(computedValue / 100);
   lastOpration = "%";
+  setOperator("*");
 };
 
 const equal = () => {
   compute();
+
+  setOperator("=");
+
   computedValue = 0;
   lastOpration = "";
   isFloating = false;
